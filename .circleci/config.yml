@@ -81,7 +81,8 @@ workflows:
             - test
           filters:
             branches:
-              - master
-              - develop
+              only:
+                - master
+                - develop
 
 
