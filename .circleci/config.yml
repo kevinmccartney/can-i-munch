@@ -37,6 +37,10 @@ jobs:
           at: /tmp/can-i-munch
       - run: cd /tmp/can-i-munch
       - run: npm run build --production
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - dist
   test:
     executor: node_image
     steps:
@@ -44,22 +48,25 @@ jobs:
       - attach_workspace:
           at: /tmp/can-i-munch
       - run: npm run test
-      # - run: sudo apt-get update && sudo apt-get install python3-pip
-      # - run: sudo pip3 install awscli
-      # # `deploy` step: identical to a `run` step, but uses only one container:
-      # # /docs/2.0/configuration-reference/#deploy
-      # - deploy:
-      #     name: deploy to AWS
-      #     command: |
-      #         if [ "${CIRCLE_BRANCH}" = "master" ]; then
-      #           aws s3 sync ./dist/can-i-munch \
-      #           s3://canimun.ch --delete
-      #         elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
-      #           aws s3 sync ./dist/can-i-munch \
-      #           s3://dev.canimun.ch --delete
-      #         fi
+  deploy:
+    executor: node_image
+    steps:
+      - run: sudo apt-get update && sudo apt-get install python3-pip
+      - run: sudo pip3 install awscli
+      # `deploy` step: identical to a `run` step, but uses only one container:
+      # /docs/2.0/configuration-reference/#deploy
+      - deploy:
+          name: deploy to AWS
+          command: |
+              if [ "${CIRCLE_BRANCH}" = "master" ]; then
+                aws s3 sync ./dist/can-i-munch \
+                s3://canimun.ch --delete
+              elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
+                aws s3 sync ./dist/can-i-munch \
+                s3://dev.canimun.ch --delete
+              fi
 workflows:
-  ci-harness:
+  ci_cd_harness:
     jobs:
       - install
       - build:
@@ -68,13 +75,13 @@ workflows:
       - test:
           requires:
             - install
-      # - deploy:
-      #     requires:
-      #       - build
-      #       - test
-      #     filters:
-      #       branches:
-      #         - master
-      #         - develop
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              - master
+              - develop
 
 
