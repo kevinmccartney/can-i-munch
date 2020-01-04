@@ -84,5 +84,6 @@ workflows:
               only:
                 - master
                 - develop
+                - enablement/*
 
 
