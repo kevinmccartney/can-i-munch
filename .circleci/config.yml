@@ -51,6 +51,9 @@ jobs:
   deploy:
     executor: node_image
     steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/can-i-munch
       - run: sudo apt-get update && sudo apt-get install python3-pip
       - run: sudo pip3 install awscli
       # `deploy` step: identical to a `run` step, but uses only one container:
