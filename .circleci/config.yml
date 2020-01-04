@@ -84,6 +84,6 @@ workflows:
               only:
                 - master
                 - develop
-                - enablement/*
+                - /enablement\/.*/
 
 
