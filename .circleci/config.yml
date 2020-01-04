@@ -37,8 +37,13 @@ jobs:
           at: /tmp/can-i-munch
       - run: cd /tmp/can-i-munch
       - run: npm run build --production
-      # run tests!
-      # - run: yarn test
+  test:
+    executor: node_image
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/can-i-munch
+      - run: npm run test
       # - run: sudo apt-get update && sudo apt-get install python3-pip
       # - run: sudo pip3 install awscli
       # # `deploy` step: identical to a `run` step, but uses only one container:
@@ -60,9 +65,9 @@ workflows:
       - build:
           requires:
             - install
-      # - test:
-      #     requires:
-      #       - install
+      - test:
+          requires:
+            - install
       # - deploy:
       #     requires:
       #       - build
