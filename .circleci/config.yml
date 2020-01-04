@@ -38,7 +38,7 @@ jobs:
       # run tests!
       - run: yarn test
 
-      - run: sudo apt-get install python python-dev py-pip build-base
+      - run: sudo apt-get update && sudo apt-get install python python-dev py-pip build-base
       - run: pip install awscli
 
       # `deploy` step: identical to a `run` step, but uses only one container:
