@@ -2,19 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundViewComponent } from '@modules/shared/components';
 import { SharedModule } from '@modules/shared';
+import { AuthenticationGuard } from '@modules/core/guards';
 
 
 const routes: Routes = [
   {
     path: 'messaging',
+    canActivate: [AuthenticationGuard],
     loadChildren: () => import('./modules/messaging').then(x => x.MessagingRoutedModule)
   },
-  // {
-  //   path: 'users'
-  // },
-  // {
-  //   path: 'admin'
-  // },
   {
     path: 'account',
     loadChildren: () => import('./modules/account').then(x => x.AccountRoutedModule)

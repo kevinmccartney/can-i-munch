@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'cim-login-view',
-  template: 'hello, world'
+  templateUrl: './login-view.component.html'
 })
 export class LoginViewComponent {}
