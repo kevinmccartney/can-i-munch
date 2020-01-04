@@ -37,3 +37,14 @@ jobs:
 
       # run tests!
       - run: yarn test
+
+      - run: apt-get install python python-dev py-pip build-base
+      - run: pip install awscli
+
+      # `deploy` step: identical to a `run` step, but uses only one container:
+      # /docs/2.0/configuration-reference/#deploy
+      - deploy:
+          name: deploy to AWS
+          command: |
+              aws s3 sync ./dist \
+              s3://canimun.ch --delete
