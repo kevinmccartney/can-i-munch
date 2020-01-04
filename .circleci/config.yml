@@ -38,15 +38,13 @@ jobs:
       # run tests!
       - run: yarn test
 
-      - run: |
-          curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-macos.zip" -o "awscliv2.zip" && \
-          unzip awscliv2.zip && \
-          sudo ./aws/install
+      - run: sudo apt-get update && sudo apt-get install python3
+      - run: pip3 install awscli
 
       # `deploy` step: identical to a `run` step, but uses only one container:
       # /docs/2.0/configuration-reference/#deploy
       - deploy:
           name: deploy to AWS
           command: |
-              aws2 s3 sync ./dist \
+              aws s3 sync ./dist \
               s3://canimun.ch --delete
