@@ -3,17 +3,18 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
-jobs:
-  build:
-    branches:
-      only:
-        - master
+executors:
+  node-image:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:10.18.0-browsers
-    working_directory: ~/repo
+        - image: circleci/node:10.18.0-browsers
+    working_directory: /tmp
+
+jobs:
+  install:
+    executor: node_image
     steps:
       - checkout
+      - run: mkdir can-i-munch && cd $_
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -25,20 +26,50 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - can-i-munch
+  build:
+    executor: node_image
+    steps:
+      - attach_to_workspace:
+          at: /tmp/can-i-munch
+      - run: cd can-i-munch
       - run: npm run build --production
       # run tests!
-      - run: yarn test
-      - run: sudo apt-get update && sudo apt-get install python3-pip
-      - run: sudo pip3 install awscli
-      # `deploy` step: identical to a `run` step, but uses only one container:
-      # /docs/2.0/configuration-reference/#deploy
-      - deploy:
-          name: deploy to AWS
-          command: |
-              if [ "${CIRCLE_BRANCH}" = "master" ]; then
-                aws s3 sync ./dist/can-i-munch \
-                s3://canimun.ch --delete
-              elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
-                aws s3 sync ./dist/can-i-munch \
-                s3://dev.canimun.ch --delete
-              fi
+      # - run: yarn test
+      # - run: sudo apt-get update && sudo apt-get install python3-pip
+      # - run: sudo pip3 install awscli
+      # # `deploy` step: identical to a `run` step, but uses only one container:
+      # # /docs/2.0/configuration-reference/#deploy
+      # - deploy:
+      #     name: deploy to AWS
+      #     command: |
+      #         if [ "${CIRCLE_BRANCH}" = "master" ]; then
+      #           aws s3 sync ./dist/can-i-munch \
+      #           s3://canimun.ch --delete
+      #         elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
+      #           aws s3 sync ./dist/can-i-munch \
+      #           s3://dev.canimun.ch --delete
+      #         fi
+workflows:
+  ci-harness:
+    jobs:
+      - install
+      - build:
+          requires:
+            - install
+      # - test:
+      #     requires:
+      #       - install
+      # - deploy:
+      #     requires:
+      #       - build
+      #       - test
+      #     filters:
+      #       branches:
+      #         - master
+      #         - develop
+
+
