@@ -38,8 +38,8 @@ jobs:
       # run tests!
       - run: yarn test
 
-      - run: sudo apt-get update && sudo apt-get install python3
-      - run: pip3 install awscli
+      - run: sudo apt-get update && sudo apt-get install python3-pip
+      - run: sudo pip3 install awscli
 
       # `deploy` step: identical to a `run` step, but uses only one container:
       # /docs/2.0/configuration-reference/#deploy
