@@ -74,17 +74,18 @@ workflows:
       - build:
           requires:
             - install
-      - test:
-          requires:
-            - install
+      # - test:
+      #     requires:
+      #       - install
       - deploy:
           requires:
             - build
-            - test
+            # - test
           filters:
             branches:
               only:
                 - master
                 - develop
+                - /enablement/*./
 
 
