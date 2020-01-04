@@ -46,5 +46,5 @@ jobs:
       - deploy:
           name: deploy to AWS
           command: |
-              aws s3 sync ./dist \
+              aws s3 sync ./dist/can-i-munch \
               s3://canimun.ch --delete
