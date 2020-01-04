@@ -33,7 +33,7 @@ jobs:
   build:
     executor: node_image
     steps:
-      - attach_to_workspace:
+      - attach_workspace:
           at: /tmp/can-i-munch
       - run: cd can-i-munch
       - run: npm run build --production
