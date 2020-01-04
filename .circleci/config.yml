@@ -35,7 +35,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/can-i-munch
-      - run: cd /tmp/can-i-munch
       - run: npm run build --production
       - persist_to_workspace:
           root: ./
