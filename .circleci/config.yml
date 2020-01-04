@@ -61,7 +61,7 @@ jobs:
               if [ "${CIRCLE_BRANCH}" = "master" ]; then
                 aws s3 sync ./dist/can-i-munch \
                 s3://canimun.ch --delete
-              elif [ "${CIRCLE_BRANCH}" = "develop" ]; then
+              else
                 aws s3 sync ./dist/can-i-munch \
                 s3://dev.canimun.ch --delete
               fi
