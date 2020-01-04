@@ -7,14 +7,13 @@ executors:
   node_image:
     docker:
         - image: circleci/node:10.18.0-browsers
-    working_directory: /tmp
+    working_directory: /tmp/can-i-munch
 
 jobs:
   install:
     executor: node_image
     steps:
       - checkout
-      - run: mkdir can-i-munch && cd $_
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -29,10 +28,11 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - can-i-munch
+            - node_modules
   build:
     executor: node_image
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/can-i-munch
       - run: cd can-i-munch
