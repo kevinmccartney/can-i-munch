@@ -10,5 +10,6 @@ export class ViewWrapperDirective {
     this.el.nativeElement.style.justifyContent = 'center';
     this.el.nativeElement.style.alignItems = 'center';
     this.el.nativeElement.style.flexDirection = 'column';
+    this.el.nativeElement.style.backgroundColor = 'var(--grey-color-lighter)';
   }
 }

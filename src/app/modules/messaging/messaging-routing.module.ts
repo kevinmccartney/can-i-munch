@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SendViewComponent } from './components';
+import { AuthenticationGuard } from '@modules/core/guards';
 
 const routes: Routes = [
   {
     path: 'send',
-    component: SendViewComponent
+    component: SendViewComponent,
+    canActivate: [AuthenticationGuard],
   },
   {
     path: '**',

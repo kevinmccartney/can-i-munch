@@ -10,10 +10,19 @@ $primary: mat-palette($mat-indigo);
 $accent:  mat-palette($mat-pink, A200, A100, A400);
 
 @debug $primary;
+@debug map-get($primary, 'default');
 
 :root {
-  --primary-color: $mat-indigo;
-  --secondary-color: $mat-pink;
+  --primary-color-lighter: #{map-get($primary, 'lighter')};
+  --primary-color: #{map-get($primary, 'default')};
+  --primary-color-darker: #{map-get($primary, 'darker')};
+  --accent-color-lighter: #{map-get($accent, 'lighter')};
+  --accent-color: #{map-get($accent, 'default')};
+  --accent-color-darker: #{map-get($accent, 'darker')};
+  --white-color: #{map-get($mat-grey, 50)};
+  --grey-color-lighter: #{map-get($mat-grey, 200)};
+  --grey-color: #{map-get($mat-grey, 400)};
+  --grey-color-darker: #{map-get($mat-grey, 700)};
 }
 
 html {
@@ -22,4 +31,8 @@ html {
 
 body {
   font-size: 2rem;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
