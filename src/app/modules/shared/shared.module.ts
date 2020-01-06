@@ -4,10 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NotFoundViewComponent, ViewWrapperComponent } from './components';
-import { ViewWrapperDirective } from './directives/view-wrapper';
+import { NotFoundViewComponent, ViewWrapperComponent, ComingSoonComponent } from './components';
+import { AuthenticatedDirective, ViewWrapperDirective } from './directives';
 import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -18,11 +19,14 @@ import {MatIconModule} from '@angular/material/icon';
     MatToolbarModule,
     RouterModule,
     MatIconModule,
+    CommonModule
   ],
   declarations: [
     NotFoundViewComponent,
     ViewWrapperDirective,
-    ViewWrapperComponent
+    ViewWrapperComponent,
+    ComingSoonComponent,
+    AuthenticatedDirective
   ],
   exports: [
     NotFoundViewComponent,
@@ -34,6 +38,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatToolbarModule,
     ViewWrapperComponent,
     MatIconModule,
+    ComingSoonComponent,
+    AuthenticatedDirective,
   ]
 })
 export class SharedModule {}

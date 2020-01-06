@@ -8,11 +8,14 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileViewComponent,
-    canActivate: [AuthenticationGuard]
+    canActivate: [AuthenticationGuard],
+    data: {
+      title: 'Profile'
+    }
   },
   {
     path: 'login',
-    component: LoginViewComponent
+    component: LoginViewComponent,
   },
   {
     path: 'create',

@@ -1,1 +1,1 @@
-export * from './send-view';
+export * from './messaging-view';
