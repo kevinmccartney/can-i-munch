@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="sticky top-0 mat-elevation-z5 z-10">
+  <div class="flex items-center">
+    <a mat-button class="flex" routerLink="/">
+      <mat-icon class="text-xl h-auto w-auto">local_pizza</mat-icon>
+    </a>
+    <a *ngIf="isAuthed$ | async" mat-button routerLink="/messaging">Messaging</a>
+    <a *ngIf="isAuthed$ | async" mat-button routerLink="/users">Users</a>
+  </div>
+  <div class="flex-grow-1 flex justify-end">
+    <a mat-button routerLink="/account/profile" *ngIf="isAuthed$ | async" >
+      <mat-icon class="text-lg h-auto w-auto">person</mat-icon>
+    </a>
+  </div>
+</mat-toolbar>
+<section cimViewWrapper>
+  <h1 *ngIf="title" class="h-3 text-lg w-full px-4 py-3">{{ title }}</h1>
+  <div class="flex-grow-1 flex items-center">
+    <router-outlet></router-outlet>
+  </div>
+</section>
+
+

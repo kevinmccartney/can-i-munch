@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'cim-create-account-view',
-  template: 'create account view'
+  templateUrl: './create-account-view.component.html'
 })
 export class CreateAccountViewComponent {}

@@ -1,9 +1,16 @@
-<section cimViewWrapper>
-  <div>
-    <h1>Welcome to Can I Munch?</h1>
-    <h3>Please Login</h3>
-  </div>
-  <div>
-    <mat-card>Hello</mat-card>
-  </div>
-</section>
+<div class="flex-grow-3 w-full flex flex-col p-6">
+  <mat-card class="self-center flex flex-col min-w-md p-4">
+    <h1 class="text-md mb-3">Login</h1>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="johndoe">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput placeholder="••••••••••">
+    </mat-form-field>
+    <button class="mb-2" mat-flat-button color="primary" (click)="handleSubmission()">Submit</button>
+    <p class="mb-2">Or</p>
+    <a mat-button routerLink="/account/create">Create an account</a>
+  </mat-card>
+</div>

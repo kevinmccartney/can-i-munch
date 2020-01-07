@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { AuthenticationService } from '@modules/core/services';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -15,10 +15,9 @@ export class AuthenticationGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     const url: string = state.url;
+    const { isAuthenticated } = this.authService;
 
-    return this.authService.isAuthenticated$.pipe(
-      map((x: boolean) => this.checkLogin(x, url))
-    );
+    return of(this.checkLogin(isAuthenticated, url));
   }
 
   checkLogin(isAuthed: boolean, url: string): boolean {

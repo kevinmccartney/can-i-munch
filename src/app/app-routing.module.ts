@@ -4,20 +4,24 @@ import { NotFoundViewComponent } from '@modules/shared/components';
 import { SharedModule } from '@modules/shared';
 import { AuthenticationGuard } from '@modules/core/guards';
 
-
 const routes: Routes = [
   {
     path: 'messaging',
+    loadChildren: () => import('./modules/messaging').then(x => x.MessagingRoutedModule),
     canActivate: [AuthenticationGuard],
-    loadChildren: () => import('./modules/messaging').then(x => x.MessagingRoutedModule)
   },
   {
     path: 'account',
     loadChildren: () => import('./modules/account').then(x => x.AccountRoutedModule)
   },
   {
+    path: 'users',
+    loadChildren: () => import('./modules/users').then(x => x.UsersRoutedModule),
+    canActivate: [AuthenticationGuard],
+  },
+  {
     path: '',
-    redirectTo: '/messaging/send',
+    loadChildren: () => import('./modules/dashboard').then(x => x.DashboardRoutedModule),
     pathMatch: 'full'
   },
   {
@@ -31,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), SharedModule],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true }), SharedModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

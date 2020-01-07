@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MessagingViewComponent } from './components';
+import { AuthenticationGuard } from '@modules/core/guards';
+import { UsersViewComponent } from './components';
 
 const routes: Routes = [
   {
     path: '',
-    component: MessagingViewComponent,
+    component: UsersViewComponent,
+    canActivate: [AuthenticationGuard],
     pathMatch: 'full',
     data: {
-      title: 'Messaging'
+      title: 'Users'
     }
   },
   {
@@ -21,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MessagingRoutingModule {}
+export class UsersRoutingModule {}
