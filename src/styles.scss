@@ -9,9 +9,6 @@
 $primary: mat-palette($mat-indigo);
 $accent:  mat-palette($mat-pink, A200, A100, A400);
 
-@debug $primary;
-@debug map-get($primary, 'default');
-
 :root {
   --primary-color-lighter: #{map-get($primary, 'lighter')};
   --primary-color: #{map-get($primary, 'default')};

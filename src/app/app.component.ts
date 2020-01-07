@@ -31,7 +31,14 @@ export class AppComponent {
           return activatedRoute.snapshot;
         };
 
-        const title = getActiveRouteSnapshot(this._route)?.data?.title;
+        const routeSnapshot = getActiveRouteSnapshot(this._route);
+        const hasData = !!(routeSnapshot && routeSnapshot.data);
+
+        let title: string | undefined;
+
+        if (hasData) {
+          title = routeSnapshot.data.title;
+        }
 
         this._viewTitleService.setViewTitle(title);
       });
