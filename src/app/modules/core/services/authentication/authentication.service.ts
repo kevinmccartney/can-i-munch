@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AmplifyService } from 'aws-amplify-angular';
 
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -19,29 +20,34 @@ async function sleep(fn, ...args): Promise<void> {
 export class AuthenticationService {
   isAuthenticated$: Observable<boolean>;
   isAuthenticated: boolean;
-  private _isAuthenticatedSubject$: Subject<boolean> = new Subject();
+  authenticationInFlight$: Observable<boolean>;
+  authService: any;
+  private _isAuthenticatedSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _authInFlightSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private _router: Router) {
+  constructor(private _router: Router, private _amplifyService: AmplifyService) {
+    this.authService = this._amplifyService.auth();
     this.isAuthenticated$ = this._isAuthenticatedSubject$.asObservable();
-
-    of('mock')
-      .pipe(delay(3000))
-      .subscribe(() => {
-      this._isAuthenticatedSubject$.next(false);
-      this.isAuthenticated = false;
-    });
+    this.authenticationInFlight$ = this._authInFlightSubject$.asObservable();
   }
 
-  // store the URL so we can redirect after logging in
-  redirectUrl: string;
+  async login(username: string, password: string): Promise<void | Error> {
+    this._authInFlightSubject$.next(true);
+    let success = false;
+    try {
+      const response = await this.authService.signIn(username, password);
 
-  async login(): Promise<boolean> {
-    await timeout(3000);
+      if (response) {
+        this._isAuthenticatedSubject$.next(true);
+        this.isAuthenticated = true;
+        success = true;
+        this._authInFlightSubject$.next(false);
+      }
+    } catch (e) {
+      this._authInFlightSubject$.next(false);
 
-    this._isAuthenticatedSubject$.next(true);
-    this.isAuthenticated = true;
-
-    return true;
+      return e;
+    }
   }
 
   logout(): void {

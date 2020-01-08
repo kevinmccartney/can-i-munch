@@ -4,11 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NotFoundViewComponent, ViewWrapperComponent, ComingSoonComponent } from './components';
+import { NotFoundViewComponent, ViewWrapperComponent, ComingSoonComponent, SnackbarComponent, LoadingOverlayComponent } from './components';
 import { AuthenticatedDirective, ViewWrapperDirective } from './directives';
 import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,14 +21,19 @@ import { CommonModule } from '@angular/common';
     MatToolbarModule,
     RouterModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   declarations: [
     NotFoundViewComponent,
     ViewWrapperDirective,
     ViewWrapperComponent,
     ComingSoonComponent,
-    AuthenticatedDirective
+    AuthenticatedDirective,
+    SnackbarComponent,
+    LoadingOverlayComponent,
   ],
   exports: [
     NotFoundViewComponent,
@@ -40,6 +47,13 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     ComingSoonComponent,
     AuthenticatedDirective,
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    CommonModule,
+    SnackbarComponent,
+    LoadingOverlayComponent,
+  ],
+  entryComponents: [SnackbarComponent]
 })
 export class SharedModule {}

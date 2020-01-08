@@ -10,9 +10,11 @@ import { Observable } from 'rxjs';
 export class ViewWrapperComponent {
   @Input() title: string;
   public isAuthed$: Observable<boolean>;
+  public authIsInFlight$: Observable<boolean>;
 
 
   constructor(private _authenticationService: AuthenticationService) {
     this.isAuthed$ = this._authenticationService.isAuthenticated$;
+    this.authIsInFlight$ = this._authenticationService.authenticationInFlight$;
   }
 }
