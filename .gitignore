@@ -59,4 +59,4 @@ awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
-src/amplify-config.js
+src/amplify-config.ts
