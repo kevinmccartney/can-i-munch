@@ -102,7 +102,7 @@ workflows:
               only:
                 - master
       - deploy:
-          name: deploy_prod
+          name: deploy_dev
           requires:
             - build_dev
             - test
