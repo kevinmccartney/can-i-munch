@@ -72,17 +72,19 @@ workflows:
       - install
       - build:
           context: CIM_DEV_ENV
+          name: build_dev
           filters:
             branches:
-              only:
+              ignore:
                 - master
           requires:
             - install
       - build:
-          context: CIM_DEV_ENV
+          context: CIM_PROD_ENV
+          name: build_prod
           filters:
             branches:
-              ignore:
+              only:
                 - master
           requires:
             - install
@@ -90,14 +92,21 @@ workflows:
           context: CIM_DEV_ENV
           requires:
             - install
-      - deploy:
+      - deploy_prod:
           requires:
-            - build
+            - build_prod
             - test
           filters:
             branches:
               only:
                 - master
+      - deploy_dev:
+          requires:
+            - build_dev
+            - test
+          filters:
+            branches:
+              only:
                 - develop
 
 
