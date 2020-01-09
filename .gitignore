@@ -59,4 +59,6 @@ awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
-src/amplify-config.ts
+
+# environments
+src/environments/*

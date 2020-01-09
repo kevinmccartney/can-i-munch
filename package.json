@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "npm run config:generate",
     "start": "ng serve",
+    "prebuild": "npm run config:generate",
     "build": "ng build --prod",
     "test": "ng test --watch=false",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "config:generate": "node ./scripts/generate-config.js"
   },
   "private": true,
   "dependencies": {

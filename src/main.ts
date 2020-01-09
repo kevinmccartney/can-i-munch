@@ -6,7 +6,11 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import Amplify from 'aws-amplify';
-import { config as awsconfig } from './amplify-config';
+import { conf as awsconfig } from './amplify-config';
+
+let config = awsconfig;
+
+console.log(config);
 
 Amplify.configure(awsconfig);
 
