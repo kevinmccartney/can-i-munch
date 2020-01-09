@@ -8,6 +8,7 @@
     "prebuild": "npm run config:generate",
     "build": "ng build --prod",
     "test": "ng test --watch=false",
+    "test:watch": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "config:generate": "node ./scripts/generate-config.js"
