@@ -8,7 +8,6 @@ executors:
     docker:
         - image: circleci/node:10.18.0-browsers
     working_directory: /tmp/can-i-munch
-
 jobs:
   install:
     executor: node_image
@@ -72,19 +71,44 @@ workflows:
     jobs:
       - install
       - build:
+          context: CIM_ENV_DEV
+          name: build_dev
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - install
+      - build:
+          context: CIM_ENV_PROD
+          name: build_prod
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - install
       - test:
+          context: CIM_ENV_DEV
           requires:
             - install
       - deploy:
+          name: deploy_prod
           requires:
-            - build
+            - build_prod
             - test
           filters:
             branches:
               only:
                 - master
+      - deploy:
+          name: deploy_prod
+          requires:
+            - build_dev
+            - test
+          filters:
+            branches:
+              only:
                 - develop
 
 

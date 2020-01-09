@@ -10,23 +10,17 @@ import { map } from 'rxjs/operators';
 export class AuthenticationGuard implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    const url: string = state.url;
+  canActivate(): Observable<boolean> {
     const { isAuthenticated } = this.authService;
 
-    return of(this.checkLogin(isAuthenticated, url));
+    return of(this.checkLogin(isAuthenticated));
   }
 
-  checkLogin(isAuthed: boolean, url: string): boolean {
+  checkLogin(isAuthed: boolean): boolean {
     let result = false;
     if (isAuthed) {
       result = true;
     } else {
-      this.authService.redirectUrl = url;
-
       this.router.navigate(['/account/login']);
     }
 

@@ -1,15 +1,19 @@
 <div class="flex-grow-3 w-full flex flex-col p-6">
   <mat-card class="self-center flex flex-col min-w-md p-4">
-    <h1 class="text-md mb-3">Login</h1>
-    <mat-form-field appearance="outline">
+  <h1 class="text-md mb-3">Login</h1>
+  <form (ngSubmit)="handleSubmission($event)" [formGroup]="formGroup" class="flex flex-col">
+    <mat-form-field class="mb-2" appearance="outline">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="johndoe">
+      <input matInput placeholder="johndoe" formControlName="username">
+      <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">A username is required</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field  class="mb-2" appearance="outline">
       <mat-label>Password</mat-label>
-      <input type="password" matInput placeholder="••••••••••">
+      <input type="password" matInput placeholder="••••••••••" formControlName="password">
+      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">A password is required</mat-error>
     </mat-form-field>
-    <button class="mb-2" mat-flat-button color="primary" (click)="handleSubmission()">Submit</button>
+    <button class="mb-2" mat-flat-button color="primary" type="submit">Submit</button>
+  </form>
     <p class="mb-2">Or</p>
     <a mat-button routerLink="/account/create">Create an account</a>
   </mat-card>

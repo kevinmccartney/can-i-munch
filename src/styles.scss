@@ -8,6 +8,7 @@
 
 $primary: mat-palette($mat-indigo);
 $accent:  mat-palette($mat-pink, A200, A100, A400);
+$warning: mat-palette($mat-red);
 
 :root {
   --primary-color-lighter: #{map-get($primary, 'lighter')};
@@ -20,6 +21,9 @@ $accent:  mat-palette($mat-pink, A200, A100, A400);
   --grey-color-lighter: #{map-get($mat-grey, 200)};
   --grey-color: #{map-get($mat-grey, 400)};
   --grey-color-darker: #{map-get($mat-grey, 700)};
+  --warning-color-lighter: #{map-get($warning, 'lighter')};
+  --warning-color: #{map-get($warning, 'default')};
+  --warning-color-darker: #{map-get($warning, 'darker')};
 }
 
 html {

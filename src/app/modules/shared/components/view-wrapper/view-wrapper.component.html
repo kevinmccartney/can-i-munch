@@ -18,5 +18,6 @@
     <router-outlet></router-outlet>
   </div>
 </section>
+<cim-loading-overlay *ngIf="authIsInFlight$ | async"></cim-loading-overlay>
 
 
