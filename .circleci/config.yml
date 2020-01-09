@@ -71,7 +71,7 @@ workflows:
     jobs:
       - install
       - build:
-          context: CIM_DEV_ENV
+          context: CIM_ENV_DEV
           name: build_dev
           filters:
             branches:
@@ -80,7 +80,7 @@ workflows:
           requires:
             - install
       - build:
-          context: CIM_PROD_ENV
+          context: CIM_ENV_PROD
           name: build_prod
           filters:
             branches:
@@ -89,7 +89,7 @@ workflows:
           requires:
             - install
       - test:
-          context: CIM_DEV_ENV
+          context: CIM_ENV_DEV
           requires:
             - install
       - deploy:
