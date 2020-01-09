@@ -92,7 +92,8 @@ workflows:
           context: CIM_DEV_ENV
           requires:
             - install
-      - deploy_prod:
+      - deploy:
+          name: deploy_prod
           requires:
             - build_prod
             - test
@@ -100,7 +101,8 @@ workflows:
             branches:
               only:
                 - master
-      - deploy_dev:
+      - deploy:
+          name: deploy_prod
           requires:
             - build_dev
             - test
