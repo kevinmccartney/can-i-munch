@@ -5,7 +5,7 @@
     <mat-form-field class="mb-2" appearance="outline">
       <mat-label>Username</mat-label>
       <input matInput placeholder="johndoe" formControlName="username">
-      <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">A username is required</mat-error>
+      <mat-error *ngIf="username.invalid && (username.dirty || username.touched || form.submitted)">A username is required</mat-error>
     </mat-form-field>
     <mat-form-field  class="mb-2" appearance="outline">
       <mat-label>Password</mat-label>
