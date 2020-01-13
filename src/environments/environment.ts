@@ -1,1 +1,0 @@
-export const environment = {"production":false,"amplify":{"auth":{"region":"us-east-1","userPoolId":"us-east-1_AwzELlfbb","identityPoolId":"us-east-1:d43b69b4-47a0-422d-950a-df36bce474fc","userPoolWebClientId":"4hg90rpofso89fjkr1q2593sk1"}}}

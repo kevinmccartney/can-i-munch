@@ -1,0 +1,18 @@
+2020/01/12 17:45:25 [INFO] Terraform version: 0.12.19  
+2020/01/12 17:45:25 [INFO] Go runtime version: go1.13.5
+2020/01/12 17:45:25 [INFO] CLI args: []string{"/usr/local/bin/terraform", "plan"}
+2020/01/12 17:45:25 [DEBUG] Attempting to open CLI config file: /Users/kevinmccartney/.terraformrc
+2020/01/12 17:45:25 [DEBUG] File doesn't exist, but doesn't need to. Ignoring.
+2020/01/12 17:45:25 [INFO] CLI command args: []string{"plan"}
+2020/01/12 17:45:25 [TRACE] Meta.Backend: no config given or present on disk, so returning nil config
+2020/01/12 17:45:25 [TRACE] Meta.Backend: backend has not previously been initialized in this working directory
+2020/01/12 17:45:25 [DEBUG] New state was assigned lineage "fa34fb7f-35bc-8d58-6840-270676011081"
+2020/01/12 17:45:25 [TRACE] Meta.Backend: using default local state only (no backend configuration, and no existing initialized backend)
+2020/01/12 17:45:25 [TRACE] Meta.Backend: instantiated backend of type <nil>
+2020/01/12 17:45:25 [DEBUG] checking for provider in "."
+2020/01/12 17:45:25 [DEBUG] checking for provider in "/usr/local/bin"
+2020/01/12 17:45:25 [DEBUG] checking for provisioner in "."
+2020/01/12 17:45:25 [DEBUG] checking for provisioner in "/usr/local/bin"
+2020/01/12 17:45:25 [INFO] Failed to read plugin lock file .terraform/plugins/darwin_amd64/lock.json: open .terraform/plugins/darwin_amd64/lock.json: no such file or directory
+2020/01/12 17:45:25 [TRACE] Meta.Backend: backend <nil> does not support operations, so wrapping it in a local backend
+2020/01/12 17:45:25 [INFO] backend/local: starting Plan operation
