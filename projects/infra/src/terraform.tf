@@ -55,3 +55,7 @@ module "web_certs" {
 module "identity" {
   source = "./modules/identity"
 }
+
+output "sms_role" {
+  value = module.identity.sms_role
+}

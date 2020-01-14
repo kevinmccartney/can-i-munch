@@ -8,7 +8,7 @@ data "aws_route53_zone" "route_zone" {
 }
 
 resource "aws_s3_bucket" "web_dist" {
-  bucket = var.environment == "master" ? "canimunch.com" : "${var.environment}.canimunch.com"
+  bucket = var.environment == "prod" ? "canimunch.com" : "${var.environment}.canimunch.com"
   acl    = "public-read"
 
   website {
@@ -19,7 +19,7 @@ resource "aws_s3_bucket" "web_dist" {
 
 resource "aws_route53_record" "route_record" {
   zone_id = data.aws_route53_zone.route_zone.zone_id
-  name    = var.environment
+  name    = var.environment == "prod" ? "canimunch.com" : "${var.environment}.canimunch.com"
   type    = "CNAME"
   ttl     = "300"
   records = [aws_cloudfront_distribution.s3_distribution.domain_name]
@@ -48,7 +48,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   comment             = "Managed by Terraform"
 
-  aliases = [var.environment == "master" ? "canimunch.com" : "${var.environment}.canimunch.com"]
+  aliases = [var.environment == "prod" ? "canimunch.com" : "${var.environment}.canimunch.com"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
