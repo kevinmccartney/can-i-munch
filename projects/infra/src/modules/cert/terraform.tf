@@ -1,8 +1,3 @@
-
-locals {
-  all_domains = sort(tolist(setunion([var.apex_domain], var.sub_domain_names)))
-}
-
 resource "aws_route53_zone" "domain_routes" {
   name = "canimunch.com"
   tags = {
@@ -11,18 +6,9 @@ resource "aws_route53_zone" "domain_routes" {
   }
 }
 
-# resource "aws_route53_record" "route_records" {
-#   for_each = local.all_domains
-
-#   zone_id = aws_route53_zone.domain_routes.zone_id
-#   name    = each.value
-#   type    = "A"
-#   ttl     = "300"
-# }
-
 resource "aws_acm_certificate" "default" {
-  domain_name               = var.apex_domain
-  subject_alternative_names = [for name in local.all_domains : "*.${name}"]
+  domain_name               = var.domain_names["apex"]
+  subject_alternative_names = [for name in var.domain_names : "*.${name}"]
   validation_method         = "DNS"
   tags                      = {
     "project" = "can-i-munch",
@@ -35,7 +21,7 @@ resource "aws_acm_certificate" "default" {
 }
 
 resource "aws_route53_record" "validation" {
-  count = length(local.all_domains)
+  count = length(keys(var.domain_names))
   depends_on = [aws_acm_certificate.default]
 
   name    = trimprefix(aws_acm_certificate.default.domain_validation_options[count.index + 1].resource_record_name, "*.")
@@ -52,8 +38,4 @@ resource "aws_acm_certificate_validation" "default" {
   certificate_arn         = aws_acm_certificate.default.arn
   
   validation_record_fqdns = [for validation in aws_route53_record.validation: validation.fqdn]
-}
-
-output "rec_validation" {
-  value = aws_route53_record.validation
 }

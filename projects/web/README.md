@@ -1,55 +1,27 @@
-# ReasonReact Template & Examples
+# CanIMunch
 
-This is:
-- A template for your new ReasonReact project.
-- A collection of thin examples illustrating ReasonReact usage.
-- Extra helper documentation for ReasonReact (full ReasonReact docs [here](https://reasonml.github.io/reason-react/)).
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
 
-`src` contains 4 sub-folders, each an independent, self-contained ReasonReact example. Feel free to delete any of them and shape this into your project! This template's more malleable than you might be used to =).
+## Development server
 
-The point of this template and examples is to let you understand and personally tweak the entirely of it. We **don't** give you an opaque, elaborate mega build setup just to put some boxes on the screen. It strikes to stay transparent, learnable, and simple. You're encouraged to read every file; it's a great feeling, having the full picture of what you're using and being able to touch any part.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Run
+## Code scaffolding
 
-```sh
-npm install
-npm run server
-# in a new tab
-npm start
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Open a new web page to `http://localhost:8000/`. Change any `.re` file in `src` to see the page auto-reload. **You don't need any bundler when you're developing**!
+## Build
 
-**How come we don't need any bundler during development**? We highly encourage you to open up `index.html` to check for yourself!
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-# Features Used
+## Running unit tests
 
-|                           | Blinking Greeting | Reducer from ReactJS Docs | Fetch Dog Pictures | Reason Using JS Using Reason |
-|---------------------------|------------------|----------------------------|--------------------|------------------------------|
-| No props                  |                  | ✓                          |                    |                             |
-| Has props                 |                  |                            |                    | ✓                           |
-| Children props            | ✓                |                            |                    |                             |
-| No state                  |                  |                            |                    | ✓                           |
-| Has state                 | ✓                |                            |  ✓                 |                             |
-| Has state with useReducer |                  | ✓                          |                    |                             |
-| ReasonReact using ReactJS |                  |                            |                    | ✓                           |
-| ReactJS using ReasonReact |                  |                            |                    | ✓                           |
-| useEffect                 | ✓                |                            |  ✓                |                             |
-| Dom attribute             | ✓                | ✓                          |                   | ✓                           |
-| Styling                   | ✓                | ✓                          |  ✓                | ✓                           |
-| React.array               |                  |                            |  ✓                 |                             |
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-# Bundle for Production
+## Running end-to-end tests
 
-We've included a convenience `UNUSED_webpack.config.js`, in case you want to ship your project to production. You can rename and/or remove that in favor of other bundlers, e.g. Rollup.
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-We've also provided a barebone `indexProduction.html`, to serve your bundle.
+## Further help
 
-```sh
-npm install webpack webpack-cli
-# rename file
-mv UNUSED_webpack.config.js webpack.config.js
-# call webpack to bundle for production
-./node_modules/.bin/webpack
-open indexProduction.html
-```
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

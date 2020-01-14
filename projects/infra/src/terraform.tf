@@ -1,10 +1,24 @@
+terraform {
+  backend "s3" {}
+}
+
+data "terraform_remote_state" "state" {
+  backend = "s3"
+  config = {
+    bucket     = "cim-infra-state"
+    lock_table = "cim-infra-state-locks"
+    region     = var.cim_aws_region
+    key        = "terraform.tf"
+  }
+}
+
 provider "aws" {
   version = "~> 2.8"
   region = var.cim_aws_region
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "cim-infra-${var.cim_environment}-state"
+  bucket = "cim-infra-state"
   versioning {
     enabled = true
   }
@@ -18,7 +32,7 @@ resource "aws_s3_bucket" "terraform_state" {
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "cim-infra-${var.cim_environment}-state-locks"
+  name         = "cim-infra-state-locks"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
   attribute {
@@ -30,14 +44,14 @@ resource "aws_dynamodb_table" "terraform_locks" {
 module "web_certs" {
   source = "./modules/cert"
 
-  apex_domain = "canimunch.com"
-  sub_domain_names = tolist([
-    "admin.canimunch.com",
-    "api.canimunch.com",
-    "devops.canimunch.com",
-  ])
+  domain_names = tomap({
+    "apex"   = "canimunch.com"
+    "admin"  = "admin.canimunch.com",
+    "api"    = "api.canimunch.com",
+    "devops" = "devops.canimunch.com",
+  })
 }
 
-output "rec_validation" {
-  value = module.web_certs.rec_validation
+module "identity" {
+  source = "./modules/identity"
 }
