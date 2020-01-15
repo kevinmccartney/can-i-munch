@@ -8,7 +8,7 @@ data "terraform_remote_state" "state" {
     bucket     = "cim-web-state"
     dynamodb_table = "cim-web-${var.cim_environment}-state-locks"
     region     = var.cim_aws_region
-    key        = "${var.cim_environment}/terraform.tf"
+    key        = "${var.cim_environment}/terraform.tfstate"
   }
 }
 

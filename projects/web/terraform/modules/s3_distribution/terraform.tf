@@ -17,12 +17,27 @@ resource "aws_s3_bucket" "web_dist" {
   }
 }
 
-resource "aws_route53_record" "route_record" {
+resource "aws_route53_record" "cname_route_record" {
+  count = var.environment == "prod" ? 0 : 1
   zone_id = data.aws_route53_zone.route_zone.zone_id
   name    = var.environment == "prod" ? "canimunch.com" : "${var.environment}.canimunch.com"
   type    = "CNAME"
   ttl     = "300"
   records = [aws_cloudfront_distribution.s3_distribution.domain_name]
+}
+
+resource "aws_route53_record" "alias_route_record" {
+  count = var.environment == "prod" ? 1 : 0
+
+  zone_id = data.aws_route53_zone.route_zone.zone_id
+  name    = "canimunch.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    evaluate_target_health = true
+  }
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
@@ -34,7 +49,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       http_port                = 80
       https_port               = 443
       origin_keepalive_timeout = 5
-      origin_protocol_policy   = "https-only"
+      origin_protocol_policy   = "http-only"
       origin_read_timeout      = 30
       origin_ssl_protocols     = [
           "TLSv1",
