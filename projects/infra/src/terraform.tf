@@ -8,7 +8,7 @@ data "terraform_remote_state" "state" {
     bucket     = "cim-infra-state"
     lock_table = "cim-infra-state-locks"
     region     = var.cim_aws_region
-    key        = "terraform.tf"
+    key        = "terraform.tfstate"
   }
 }
 
@@ -54,6 +54,8 @@ module "web_certs" {
 
 module "identity" {
   source = "./modules/identity"
+  external_id_dev = var.cim_external_id_dev
+  external_id_prod = var.cim_external_id_prod
 }
 
 output "sms_role" {

@@ -3,7 +3,12 @@ variable "cim_aws_region" {
   description = "The AWS region in which our serverless resources reside"
 }
 
-variable "cim_environment" {
+variable "cim_external_id_dev" {
   type = string
-  description = "Which environment we are working on"
+  description = "The external dev id for SNS"
+}
+
+variable "cim_external_id_prod" {
+  type = string
+  description = "The external prod id for SNS"
 }

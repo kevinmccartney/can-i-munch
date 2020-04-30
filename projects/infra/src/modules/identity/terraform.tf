@@ -1,26 +1,32 @@
 data "aws_iam_policy_document" "sns_policy" {
+  for_each = local.environments
   version = "2012-10-17"
 
   statement {
     actions = [
       "sns:publish"
     ]
-    effect = "Allow"
     resources = ["*"]
   }
 }
 
 locals {
   environments = tomap({
-    "prod" = "cim_users_prod",
-    "dev"  = "cim_users_dev",
+    "prod" = {
+      "name" = "cim_users_prod"
+      "external_id" = var.external_id_prod
+    },
+    "dev"  = {
+      "name" = "cim_users_dev"
+      "external_id" = var.external_id_dev
+    },
   })
 }
 
 resource "aws_cognito_user_pool" "user_pool" {
   for_each  = local.environments
 
-  name                     = each.value
+  name                     = each.value.name
   auto_verified_attributes = [
     "email",
     "phone_number",
@@ -91,10 +97,10 @@ resource "aws_cognito_user_pool" "user_pool" {
   mfa_configuration          = "OPTIONAL"
 
   sms_authentication_message = "Your authentication code is {####}. "
-  # sms_configuration {
-  #   external_id    = "0caa45dd-ce2f-4203-9b24-677ef2bfa1b7"
-  #   sns_caller_arn = aws_iam_role.sms_role[each.value].arn
-  # }
+  sms_configuration {
+    external_id    = each.value.external_id
+    sns_caller_arn = aws_iam_role.sms_role[each.key].arn
+  }
 
 
   tags = {
@@ -107,10 +113,20 @@ resource "aws_cognito_user_pool" "user_pool" {
 resource "aws_iam_role" "sms_role" {
   for_each = local.environments
   
-  name = "${each.value}-SMS-Role"
-  assume_role_policy = data.aws_iam_policy_document.sns_policy.json
+  name = "${each.value.name}-SMS-Role"
+  path = "/service-role/"
+  assume_role_policy = data.aws_iam_policy_document.sns_policy[each.key].json
 }
 
 output "sms_role" {
   value = aws_iam_role.sms_role
 }
+
+# resource "aws_cognito_identity_pool" "identity_pool" {
+#   for_each = local.environments
+
+#   name = each.value.name
+# }
+
+
+# clients?

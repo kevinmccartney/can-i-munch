@@ -14,6 +14,9 @@ resource "aws_acm_certificate" "default" {
     "project" = "can-i-munch",
     "managed_by" = "terraform"
   }
+  options {
+    certificate_transparency_logging_preference = "ENABLED"
+  }
 
   lifecycle {
     create_before_destroy = true

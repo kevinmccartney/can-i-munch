@@ -1,45 +1,26 @@
-const spacingMap = {
-  '0': '0rem',
-  '0.5': '0.5rem',
-  '1': '1rem',
-  '2': '2rem',
-  '3': '3rem',
-  '4': '4rem', // 32px
-  '5': '5rem',
-  '6': '6rem',
-  '7': '7rem', // 56px
-  '8': '8rem',
-  '9': '9rem',
-  '10': '10rem',
-  '11': '11rem',
-  '12': '12rem'
-};
+const spacingValues = [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 104, 128, 168, 208, 272, 336, 720, 896, 1152, 1440, 1920];
+
+
+const spacingMap = spacingValues.map((value, index) => {
+  return {
+    [index]: `${value / 8}rem`,
+  }
+}).reduce((current, accumulator) => {
+  return {
+    ...accumulator,
+    ...current
+  }
+}, {})
 
 const config = {
   theme: {
     // https://material.io/design/layout/responsive-layout-grid.html#breakpoints
     screens: {
       xs: '0px',
-      sm: '600px',
-      md: '1024px',
+      sm: '720px',
+      md: '1152px',
       lg: '1440px',
       xl: '1920px',
-    },
-    colors: {
-      'primary': 'var(--primary-color)',
-      'primary-lighter': 'var(--primary-color-lighter)',
-      'primary-darker': 'var(--primary-color-darker)',
-      'accent': 'var(--accent-color)',
-      'accent-lighter': 'var(--accent-color-lighter)',
-      'accent-darker': 'var(--accent-color-darker)',
-      'white': 'var(--white-color)',
-      'grey': 'var(--grey-color)',
-      'grey-lighter': 'var(--grey-color-lighter)',
-      'grey-darker': 'var(--grey-color-darker)',
-      'warning': 'var(--warning-color)',
-      'warning-lighter': 'var(--warning-color-lighter)',
-      'warning-darker': 'var(--warning-color-darker)',
-      'transparent': 'transparent',
     },
     spacing: spacingMap,
     flexGrow: {
@@ -57,24 +38,8 @@ const config = {
       '11': 11,
       '12': 12,
     },
-    fontSize: {
-      // perfect fourth type scale
-      // https://type-scale.com/
-      'caption': '1.5rem',
-      'base': '2rem',
-      'sm': '2.666rem',
-      'md': '3.554rem',
-      'lg': '4.738rem',
-      'xl': '6.314rem',
-      'xxl': '8.418rem',
-    },
     minWidth: {
       ...spacingMap,
-      'xs': '10rem', // 80px
-      'sm': '25rem', // 200px
-      'md': '50rem', // 400px
-      'lg': '75rem', // 600px
-      'xl': '100rem' // 800px
     },
   },
   plugins: [],
