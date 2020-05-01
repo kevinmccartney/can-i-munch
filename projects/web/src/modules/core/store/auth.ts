@@ -26,6 +26,10 @@ export const logout = () => ({
 
 export type AuthActions = ReturnType<typeof login | typeof logout>;
 
-const initialState = {
+const initialState: IAuthState = {
   authenticated: false,
 };
+
+export interface IAuthState {
+  authenticated: boolean;
+}

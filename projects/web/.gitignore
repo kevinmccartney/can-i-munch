@@ -24,4 +24,4 @@ yarn-error.log*
 
 # application additions
 public/tailwind.css
-src/amplify-config.ts
+/src/amplify-config.ts

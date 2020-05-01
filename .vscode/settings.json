@@ -19,5 +19,9 @@
   },
   "peacock.color": "#f9e64f",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.workingDirectories": ["./projects/web"]
 }
