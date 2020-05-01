@@ -17,5 +17,7 @@
     "statusBar.border": "#f9e64f",
     "titleBar.border": "#f9e64f"
   },
-  "peacock.color": "#f9e64f"
+  "peacock.color": "#f9e64f",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
