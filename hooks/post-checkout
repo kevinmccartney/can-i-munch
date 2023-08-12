@@ -1,0 +1,3 @@
+echo "branch changed";
+
+git branch --show-current

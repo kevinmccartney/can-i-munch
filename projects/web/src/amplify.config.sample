@@ -1,0 +1,17 @@
+import Amplify from 'aws-amplify';
+
+Amplify.configure({
+  Auth: {
+    // REQUIRED - Amazon Cognito Region
+    region: // your region here
+
+    // OPTIONAL - Amazon Cognito User Pool ID
+    userPoolId: // your user pool id here
+
+    // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+    userPoolWebClientId: // your user pool web client id here
+
+    // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
+    authenticationFlowType: 'USER_PASSWORD_AUTH',
+  },
+});
